@@ -3,7 +3,6 @@ package gnf.ada.example.tabs;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
 import com.vaadin.annotations.VaadinServletConfiguration;
-import com.vaadin.data.Property;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
@@ -12,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.annotation.WebServlet;
+
 
 @Title("Tabs")
 @Theme("valo")
@@ -37,14 +37,7 @@ public class Tabs extends UI {
 		combobox.setItemCaptionMode(AbstractSelect.ItemCaptionMode.PROPERTY);
 		combobox.setItemCaptionPropertyId("caption");
 		combobox.setContainerDataSource(new BeanItemContainer(panels));
-		combobox.addValueChangeListener(new Property.ValueChangeListener() {
-
-			@Override
-			public void valueChange(Property.ValueChangeEvent event) {
-				ts.setSelectedTab((Panel) combobox.getValue());
-			}
-
-		});
+		combobox.addValueChangeListener(event -> ts.setSelectedTab((Panel) combobox.getValue()));
 
 		mainLayout.addComponent(combobox);
 		mainLayout.addComponent(ts);
@@ -59,7 +52,6 @@ public class Tabs extends UI {
 	 */
 	@WebServlet(urlPatterns = "/*")
 	@VaadinServletConfiguration(ui = Tabs.class, productionMode = false)
-
 	public static class MyUIServlet extends VaadinServlet {
 	}
 
